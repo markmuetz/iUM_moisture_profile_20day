@@ -87,7 +87,7 @@ for expt in expts:
         'type': 'from_nodes',
         'from_nodes': [bn + '_' + expt for bn in base_nodes],
         'process': 'plot_moist_profile',
-	'process_kwargs': {'index': -2},
+	'process_kwargs': {'start_index': -24, 'end_index':None},
     }
 
 variables = {

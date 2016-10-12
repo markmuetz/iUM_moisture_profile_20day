@@ -5,7 +5,7 @@ from omnium.processes import PylabProcess
 
 OPTS = odict([(12, {182: {'l': 'Adv.', 'fmt': 'r-'}}),
              (9, {182: {'l': 'BL+cloud', 'fmt': 'r--'}}),
-             (4, {182: {'l': 'LS rain', 'fmt': 'b--'}}),
+             (4, {182: {'l': 'LS rain', 'fmt': 'b-.'}}),
              (30, {182: {'l': 'Total', 'fmt': 'k-'}})])
 
 
@@ -19,16 +19,18 @@ class PlotMoistProfile(PylabProcess):
         profiles = self.iris.load(filenames)
         self.data = profiles
 
-    def run(self, index=-1):
+    def run(self, start_index=-1, end_index=None):
         super(PlotMoistProfile, self).run()
+	s = slice(start_index, end_index)
+
         profiles = self.data
 
         fig = self.plt.figure()
 
         if self.node.name == 'moist_profile_plots_MC_on':
-            name = 'moist. cons. on'
+            name = 'MC on'
         elif self.node.name == 'moist_profile_plots_MC_off':
-            name = 'moist. cons. off'
+            name = 'MC off'
         title = 'q increments ({})'.format(name)
 
         fig.canvas.set_window_title(title)
@@ -54,13 +56,13 @@ class PlotMoistProfile(PylabProcess):
         ordered_opts_profiles.append((sum_opt, sum_profile))
 
         for opt, profile in ordered_opts_profiles:
-            last_profile = profile[index]
+	    avg_profile = profile[s].collapsed(['time'], self.iris.analysis.MEAN)
             # profile data is in kg/kg/dt, 1440 turns into /day, 1000 turns into g/kg/day.
             # height is in m, /1000 turns into km.
             label = opt['l']
             fmt = opt['fmt']
-            self.plt.plot(last_profile.data * 1440 * 1000, 
-                     last_profile.coord('level_height').points / 1000,
+            self.plt.plot(avg_profile.data * 1440 * 1000, 
+                     avg_profile.coord('level_height').points / 1000,
                      fmt,
                      label=label)
 
