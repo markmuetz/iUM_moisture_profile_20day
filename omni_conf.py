@@ -8,12 +8,12 @@ settings = {
 
 computer_name = open('computer.txt').read().strip()
 computers = {
-    'zerogravitas': {
+    'nxnode': {
         'remote': 'rdf-comp',
         'remote_address': 'mmuetz@login.rdf.ac.uk',
         'remote_path': '/nerc/n02/n02/mmuetz/omnis/iUM_moisture_profile_20day',
         'dirs': {
-            'output': '/home/markmuetz/omni_output/iUM_moisture_profile_20day/output'
+            'output': '/home/hb865130/omni_output/iUM_moisture_profile_20day/output'
         }
     },
     'rdf-comp': {
@@ -29,10 +29,10 @@ for expt in expts:
     comp['dirs']['work_' + expt] = '/nerc/n02/n02/mmuetz/um10.5_runs/20day/u-af095_64x64km2_1km_{}/work'.format(expt)
     comp['dirs']['results_' + expt] = '/nerc/n02/n02/mmuetz/omni_output/iUM_moisture_profile_20day/results_{}'.format(expt)
 
-comp = computers['zerogravitas']
+comp = computers['nxnode']
 for expt in expts:
-    comp['dirs']['work_' + expt] = '/home/markmuetz/omni_output/iUM_moisture_profile_20day/work_{}'.format(expt)
-    comp['dirs']['results_' + expt] = '/home/markmuetz/omni_output/iUM_moisture_profile_20day/results_{}'.format(expt)
+    comp['dirs']['work_' + expt] = '/home/hb865130/omni_output/iUM_moisture_profile_20day/work_{}'.format(expt)
+    comp['dirs']['results_' + expt] = '/home/hb865130/omni_output/iUM_moisture_profile_20day/results_{}'.format(expt)
 
 
 batches = odict(('batch{}'.format(i), {'index': i}) for i in range(4))
