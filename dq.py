@@ -5,6 +5,11 @@ import omnium as om
 
 # What this shows: that q[-1] - q[-2] (==dq) is equal to the total inc over this time.
 # This is not what I was expecting.
+# Later... Should this be a surprise?
+# Thinking: non-cons would happen in adv (OK), so should appear as adv incr of eg q.
+# This will be included in the total q incr, which then gets applied to model.
+# This is surprising because it is different from ND (i.e. SW's Moisture budget HTML paper).
+# Upshot is still that I need to check this for each qvar.
 config = om.ConfigChecker.load_config()
 process_classes = om.get_process_classes()
 dag = om.NodeDAG(config, process_classes)
